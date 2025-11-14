@@ -34,6 +34,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
         }
         
         nav {
@@ -62,6 +63,22 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #3498db;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
         }
         
         .nav-links a:hover {
@@ -75,6 +92,18 @@
         
         section {
             padding: 80px 0;
+            min-height: 100vh;
+            display: none;
+        }
+        
+        section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         h1, h2, h3 {
@@ -104,6 +133,11 @@
             color: #777;
             font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .photo-placeholder:hover {
+            transform: scale(1.05);
         }
         
         .profile-info {
@@ -119,12 +153,13 @@
         }
         
         .graph-container {
-            height: 400px;
+            height: 500px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             margin-top: 20px;
             position: relative;
             overflow: hidden;
+            background-color: #f9f9f9;
         }
         
         .node {
@@ -141,6 +176,7 @@
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
         
         .node:hover {
@@ -177,6 +213,7 @@
             height: 2px;
             background-color: #95a5a6;
             transform-origin: 0 0;
+            z-index: 5;
         }
         
         /* 工具介绍区域 */
@@ -202,6 +239,76 @@
         .tool-card h3 {
             color: #3498db;
             margin-bottom: 15px;
+        }
+        
+        /* 简历区域 */
+        .resume-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .resume-section {
+            margin-bottom: 40px;
+        }
+        
+        .resume-section h3 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #3498db;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #3498db;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .skill-tag {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
         }
         
         /* 页脚 */
@@ -237,10 +344,11 @@
             <nav>
                 <div class="logo">魏子澍 | 学术主页</div>
                 <ul class="nav-links">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#about">个人介绍</a></li>
-                    <li><a href="#knowledge-graph">知识图谱</a></li>
-                    <li><a href="#tools">工具介绍</a></li>
+                    <li><a href="#" data-target="home">首页</a></li>
+                    <li><a href="#" data-target="about">个人介绍</a></li>
+                    <li><a href="#" data-target="resume">个人简历</a></li>
+                    <li><a href="#" data-target="knowledge-graph">知识图谱</a></li>
+                    <li><a href="#" data-target="tools">工具介绍</a></li>
                 </ul>
             </nav>
         </div>
@@ -249,9 +357,20 @@
     <!-- 主要内容 -->
     <main>
         <!-- 首页部分 -->
-        <section id="home" class="container">
+        <section id="home" class="container active">
             <h1>欢迎访问我的学术主页</h1>
             <p>这里展示我的学术研究、项目成果以及医学影像知识图谱相关内容。</p>
+            <div class="profile" style="margin-top: 40px;">
+                <div class="photo-placeholder">
+                    魏子澍<br>个人照片
+                </div>
+                <div class="profile-info">
+                    <h2>魏子澍</h2>
+                    <p>医学影像与人工智能研究员</p>
+                    <p>专注于医学影像分析、知识图谱构建和人工智能在医疗领域的应用。</p>
+                    <p>拥有丰富的医学影像处理经验，特别是在磁共振成像(MRI)领域。</p>
+                </div>
+            </div>
         </section>
 
         <!-- 个人介绍部分 -->
@@ -267,6 +386,86 @@
                     <p>专注于医学影像分析、知识图谱构建和人工智能在医疗领域的应用。</p>
                     <p>拥有丰富的医学影像处理经验，特别是在磁共振成像(MRI)领域。</p>
                     <p>目前研究方向包括：医学影像智能诊断、多模态医学数据融合、医学知识图谱构建与应用。</p>
+                    
+                    <h3 style="margin-top: 30px;">研究方向</h3>
+                    <ul>
+                        <li>医学影像智能分析与诊断</li>
+                        <li>多模态医学数据融合</li>
+                        <li>医学知识图谱构建与应用</li>
+                        <li>人工智能在医疗领域的应用</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人简历部分 -->
+        <section id="resume" class="container">
+            <h2>个人简历</h2>
+            <div class="resume-content">
+                <div class="resume-section">
+                    <h3>基本信息</h3>
+                    <div class="profile-info">
+                        <p><strong>姓名：</strong>魏子澍</p>
+                        <p><strong>性别：</strong>男</p>
+                        <p><strong>年龄：</strong>21</p>
+                        <p><strong>学号：</strong>2022082101</p>
+                        <p><strong>邮箱：</strong>weizishu0920@163.com</p>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>教育背景</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2022.08 - 2027.06</div>
+                            <h4>天津医科大学</h4>
+                            <p>医学影像学 | 本科</p>
+                            <p>主修课程：生理学、病理学、生物化学、诊断学、内科学、外科学、儿科学、神经病学等</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>技能与荣誉</h3>
+                    <div class="skills">
+                        <span class="skill-tag">WPS办公软件</span>
+                        <span class="skill-tag">Xmind</span>
+                        <span class="skill-tag">PPT制作</span>
+                        <span class="skill-tag">英语六级</span>
+                        <span class="skill-tag">专业文献阅读</span>
+                        <span class="skill-tag">SPSS</span>
+                        <span class="skill-tag">GraphPad Prism</span>
+                        <span class="skill-tag">数据分析</span>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>项目经历</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2024.06 - 2025.06</div>
+                            <h4>精技论坛（Tech Precision Forum）</h4>
+                            <p><strong>职位：</strong>团队成员</p>
+                            <p>在不断发展的技术环境中，精密仪器和电子设备的采购变得越来越复杂。消费者面临着在饱和市场中导航的挑战，由于信息不对等、企业或个人消费者往往缺乏做出明智决策所需的专业知识。"精技论坛"作为采购领域的一种变革性解决方案应运而生，是一个全面的在线平台，凭借专家问答环节、讨论论坛，集中采购等功能，使消费者其能够通过深入了解产品各项技术参数的意义做出更加明智，实惠的决定。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2024.06 - 2025.06</div>
+                            <h4>津彩非遗——天津市非物质文化遗产的数字化活态传承</h4>
+                            <p><strong>职位：</strong>团队成员</p>
+                            <p>通过收集整理天津市非物质文化遗产项目，在天津市非物质文化遗产网的基础上，建立天津市非物质文化遗产资源数据库，且研发微信小程序（津彩非遗），方便信息采集、管理以及展示，为后续天津非物质文化遗产的创造性转化、创新性发展提供思路。最终达到吸引更多人关注非物质文化遗产的保护和传承，带动相关旅游业，教育业产业的目的。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>实习经历</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2025.03 - 至今</div>
+                            <h4>天津市第三中心医院（见习）</h4>
+                            <p>观察医院各部门（门诊、病房等）的布局、工作流程和医护人员日常操作；聆听带教老师介绍医院文化、规章制度、常见疾病诊疗规范，并与医护人员进行问答交流学习；感受医疗工作的严谨性、团队协作的重要性以及医患沟通的实际场景，建立初步的职业认知。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -302,6 +501,13 @@
                     <p><strong>Python:</strong> 用于数据处理和知识图谱构建</p>
                     <p><strong>SPARQL:</strong> 用于查询RDF格式的知识图谱数据</p>
                 </div>
+                <div class="tool-card">
+                    <h3>研究与开发工具</h3>
+                    <p><strong>PyTorch/TensorFlow:</strong> 深度学习框架</p>
+                    <p><strong>OpenCV:</strong> 图像处理库</p>
+                    <p><strong>ITK-SNAP:</strong> 医学影像分割工具</p>
+                    <p><strong>3D Slicer:</strong> 医学影像分析平台</p>
+                </div>
             </div>
         </section>
     </main>
@@ -310,20 +516,48 @@
     <footer>
         <div class="container">
             <p>&copy; 2023 魏子澍 - 个人学术主页</p>
-            <p>联系方式: example@email.com</p>
+            <p>联系方式: weizishu0920@163.com</p>
         </div>
     </footer>
 
     <script>
-        // 平滑滚动效果
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        // 页面导航功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置首页为默认活动页面
+            showSection('home');
+            
+            // 为导航链接添加点击事件
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('data-target');
+                    showSection(target);
+                    
+                    // 更新导航栏活动状态
+                    document.querySelectorAll('.nav-links a').forEach(a => {
+                        a.classList.remove('active');
+                    });
+                    this.classList.add('active');
                 });
             });
+            
+            // 初始化知识图谱
+            createKnowledgeGraph();
         });
+
+        // 显示指定部分
+        function showSection(sectionId) {
+            // 隐藏所有部分
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // 显示目标部分
+            document.getElementById(sectionId).classList.add('active');
+            
+            // 滚动到顶部
+            window.scrollTo(0, 0);
+        }
 
         // 导航栏滚动效果
         window.addEventListener('scroll', function() {
@@ -335,20 +569,20 @@
             }
         });
 
-        // 知识图谱数据
+        // 知识图谱数据 - 修复了节点位置
         const graphData = {
             nodes: [
-                { id: 1, label: "磁共振成像", type: "modality", x: 50, y: 50 },
-                { id: 2, label: "大脑", type: "anatomy", x: 200, y: 50 },
-                { id: 3, label: "心脏", type: "anatomy", x: 200, y: 150 },
-                { id: 4, label: "脊柱", type: "anatomy", x: 200, y: 250 },
-                { id: 5, label: "T1加权", type: "modality", x: 50, y: 100 },
-                { id: 6, label: "T2加权", type: "modality", x: 50, y: 200 },
-                { id: 7, label: "弥散加权", type: "modality", x: 50, y: 300 },
-                { id: 8, label: "脑肿瘤", type: "pathology", x: 350, y: 50 },
-                { id: 9, label: "脑卒中", type: "pathology", x: 350, y: 120 },
-                { id: 10, label: "心肌梗死", type: "pathology", x: 350, y: 200 },
-                { id: 11, label: "椎间盘突出", type: "pathology", x: 350, y: 280 }
+                { id: 1, label: "磁共振成像", type: "modality", x: 100, y: 100 },
+                { id: 2, label: "大脑", type: "anatomy", x: 300, y: 100 },
+                { id: 3, label: "心脏", type: "anatomy", x: 300, y: 200 },
+                { id: 4, label: "脊柱", type: "anatomy", x: 300, y: 300 },
+                { id: 5, label: "T1加权", type: "modality", x: 100, y: 150 },
+                { id: 6, label: "T2加权", type: "modality", x: 100, y: 250 },
+                { id: 7, label: "弥散加权", type: "modality", x: 100, y: 350 },
+                { id: 8, label: "脑肿瘤", type: "pathology", x: 500, y: 100 },
+                { id: 9, label: "脑卒中", type: "pathology", x: 500, y: 180 },
+                { id: 10, label: "心肌梗死", type: "pathology", x: 500, y: 260 },
+                { id: 11, label: "椎间盘突出", type: "pathology", x: 500, y: 340 }
             ],
             connections: [
                 { source: 1, target: 2 },
@@ -386,8 +620,8 @@
                     const connection = document.createElement('div');
                     connection.className = 'connection';
                     connection.style.width = `${length}px`;
-                    connection.style.left = `${source.x}px`;
-                    connection.style.top = `${source.y}px`;
+                    connection.style.left = `${source.x + 60}px`; // 从节点中心开始
+                    connection.style.top = `${source.y + 20}px`;
                     connection.style.transform = `rotate(${angle}deg)`;
                     
                     container.appendChild(connection);
@@ -420,29 +654,6 @@
                 default: return '未知类型';
             }
         }
-
-        // 页面加载完成后初始化知识图谱
-        document.addEventListener('DOMContentLoaded', function() {
-            createKnowledgeGraph();
-            
-            // 添加淡入效果
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'opacity 0.5s, transform 0.5s';
-            });
-            
-            // 延迟显示内容，创造加载效果
-            setTimeout(() => {
-                sections.forEach((section, index) => {
-                    setTimeout(() => {
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-                    }, index * 200);
-                });
-            }, 300);
-        });
     </script>
 </body>
 </html>
