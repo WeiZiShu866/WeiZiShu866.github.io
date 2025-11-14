@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魏子澍 - 个人学术主页</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* 主要内容区域 */
+        main {
+            margin-top: 80px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        /* 个人介绍区域 */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .photo-placeholder {
+            width: 200px;
+            height: 250px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        /* 知识图谱区域 */
+        .knowledge-graph {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .graph-container {
+            height: 400px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .node {
+            position: absolute;
+            width: 120px;
+            height: 40px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .node:hover {
+            transform: scale(1.05);
+            background-color: #2980b9;
+        }
+        
+        .node.modality {
+            background-color: #e74c3c;
+        }
+        
+        .node.modality:hover {
+            background-color: #c0392b;
+        }
+        
+        .node.anatomy {
+            background-color: #2ecc71;
+        }
+        
+        .node.anatomy:hover {
+            background-color: #27ae60;
+        }
+        
+        .node.pathology {
+            background-color: #f39c12;
+        }
+        
+        .node.pathology:hover {
+            background-color: #d35400;
+        }
+        
+        .connection {
+            position: absolute;
+            height: 2px;
+            background-color: #95a5a6;
+            transform-origin: 0 0;
+        }
+        
+        /* 工具介绍区域 */
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .tool-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tool-card h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">魏子澍 | 学术主页</div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">个人介绍</a></li>
+                    <li><a href="#knowledge-graph">知识图谱</a></li>
+                    <li><a href="#tools">工具介绍</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main>
+        <!-- 首页部分 -->
+        <section id="home" class="container">
+            <h1>欢迎访问我的学术主页</h1>
+            <p>这里展示我的学术研究、项目成果以及医学影像知识图谱相关内容。</p>
+        </section>
+
+        <!-- 个人介绍部分 -->
+        <section id="about" class="container">
+            <h2>个人介绍</h2>
+            <div class="profile">
+                <div class="photo-placeholder">
+                    魏子澍<br>个人照片
+                </div>
+                <div class="profile-info">
+                    <h3>魏子澍</h3>
+                    <p>医学影像与人工智能研究员</p>
+                    <p>专注于医学影像分析、知识图谱构建和人工智能在医疗领域的应用。</p>
+                    <p>拥有丰富的医学影像处理经验，特别是在磁共振成像(MRI)领域。</p>
+                    <p>目前研究方向包括：医学影像智能诊断、多模态医学数据融合、医学知识图谱构建与应用。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 知识图谱部分 -->
+        <section id="knowledge-graph" class="container">
+            <h2>医学影像知识图谱</h2>
+            <p>基于磁共振成像(MRI)的医学影像知识图谱，展示了不同解剖结构、成像模态和病理发现之间的关系。</p>
+            
+            <div class="knowledge-graph">
+                <h3>磁共振成像知识图谱</h3>
+                <div class="graph-container" id="graph-container">
+                    <!-- 知识图谱节点将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 工具介绍部分 -->
+        <section id="tools" class="container">
+            <h2>工具介绍</h2>
+            <div class="tools">
+                <div class="tool-card">
+                    <h3>主页开发工具</h3>
+                    <p><strong>HTML5:</strong> 用于构建网页内容和结构</p>
+                    <p><strong>CSS3:</strong> 用于样式设计和布局</p>
+                    <p><strong>JavaScript:</strong> 实现交互功能和动态效果</p>
+                    <p><strong>GitHub Pages:</strong> 用于部署和托管个人主页</p>
+                </div>
+                <div class="tool-card">
+                    <h3>知识图谱工具</h3>
+                    <p><strong>Neo4j:</strong> 图形数据库，用于存储和查询知识图谱数据</p>
+                    <p><strong>D3.js:</strong> 数据可视化库，用于创建交互式知识图谱展示</p>
+                    <p><strong>Python:</strong> 用于数据处理和知识图谱构建</p>
+                    <p><strong>SPARQL:</strong> 用于查询RDF格式的知识图谱数据</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 魏子澍 - 个人学术主页</p>
+            <p>联系方式: example@email.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
+            } else {
+                header.style.backgroundColor = '#2c3e50';
+            }
+        });
+
+        // 知识图谱数据
+        const graphData = {
+            nodes: [
+                { id: 1, label: "磁共振成像", type: "modality", x: 50, y: 50 },
+                { id: 2, label: "大脑", type: "anatomy", x: 200, y: 50 },
+                { id: 3, label: "心脏", type: "anatomy", x: 200, y: 150 },
+                { id: 4, label: "脊柱", type: "anatomy", x: 200, y: 250 },
+                { id: 5, label: "T1加权", type: "modality", x: 50, y: 100 },
+                { id: 6, label: "T2加权", type: "modality", x: 50, y: 200 },
+                { id: 7, label: "弥散加权", type: "modality", x: 50, y: 300 },
+                { id: 8, label: "脑肿瘤", type: "pathology", x: 350, y: 50 },
+                { id: 9, label: "脑卒中", type: "pathology", x: 350, y: 120 },
+                { id: 10, label: "心肌梗死", type: "pathology", x: 350, y: 200 },
+                { id: 11, label: "椎间盘突出", type: "pathology", x: 350, y: 280 }
+            ],
+            connections: [
+                { source: 1, target: 2 },
+                { source: 1, target: 3 },
+                { source: 1, target: 4 },
+                { source: 5, target: 2 },
+                { source: 6, target: 2 },
+                { source: 7, target: 2 },
+                { source: 5, target: 3 },
+                { source: 6, target: 3 },
+                { source: 5, target: 4 },
+                { source: 6, target: 4 },
+                { source: 2, target: 8 },
+                { source: 2, target: 9 },
+                { source: 3, target: 10 },
+                { source: 4, target: 11 }
+            ]
+        };
+
+        // 创建知识图谱
+        function createKnowledgeGraph() {
+            const container = document.getElementById('graph-container');
+            
+            // 创建连接线
+            graphData.connections.forEach(conn => {
+                const source = graphData.nodes.find(n => n.id === conn.source);
+                const target = graphData.nodes.find(n => n.id === conn.target);
+                
+                if (source && target) {
+                    const dx = target.x - source.x;
+                    const dy = target.y - source.y;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    
+                    const connection = document.createElement('div');
+                    connection.className = 'connection';
+                    connection.style.width = `${length}px`;
+                    connection.style.left = `${source.x}px`;
+                    connection.style.top = `${source.y}px`;
+                    connection.style.transform = `rotate(${angle}deg)`;
+                    
+                    container.appendChild(connection);
+                }
+            });
+            
+            // 创建节点
+            graphData.nodes.forEach(node => {
+                const nodeElement = document.createElement('div');
+                nodeElement.className = `node ${node.type}`;
+                nodeElement.textContent = node.label;
+                nodeElement.style.left = `${node.x}px`;
+                nodeElement.style.top = `${node.y}px`;
+                
+                // 添加点击事件
+                nodeElement.addEventListener('click', function() {
+                    alert(`您点击了: ${node.label}\n类型: ${getTypeName(node.type)}`);
+                });
+                
+                container.appendChild(nodeElement);
+            });
+        }
+
+        // 获取类型名称
+        function getTypeName(type) {
+            switch(type) {
+                case 'modality': return '成像模态';
+                case 'anatomy': return '解剖结构';
+                case 'pathology': return '病理发现';
+                default: return '未知类型';
+            }
+        }
+
+        // 页面加载完成后初始化知识图谱
+        document.addEventListener('DOMContentLoaded', function() {
+            createKnowledgeGraph();
+            
+            // 添加淡入效果
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s, transform 0.5s';
+            });
+            
+            // 延迟显示内容，创造加载效果
+            setTimeout(() => {
+                sections.forEach((section, index) => {
+                    setTimeout(() => {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+            }, 300);
+        });
+    </script>
+</body>
+</html>
